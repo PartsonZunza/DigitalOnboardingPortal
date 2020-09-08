@@ -1,0 +1,388 @@
+
+
+
+
+
+{%  extends 'accounts/main.html' %}
+
+{% block content %}
+
+{% load static %}
+<script>
+    $(document).ready(function() {
+
+
+    var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.avatar').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $(".file-upload").on('change', function(){
+        readURL(this);
+    });
+});
+</script>
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <script src="alert/dist/sweetalert-dev.js"></script>
+  <link rel="stylesheet" href="alert/dist/sweetalert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
+
+</head>
+
+
+<hr>
+ <form  method="POST"  action="{% url 'product_add' %}"  enctype="multipart/form-data">
+     {% csrf_token %}
+<div class="container bootstrap snippet">
+    <div class="row">
+            <div class="col-sm-10"><h3>Product Image</h3></div>
+
+    </div>
+    <div class="row">
+  		<div class="col-sm-3"><!--left col-->
+
+
+      <div class="text-center">
+        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+        <h6>Upload a different photo...</h6>
+        <input type="file" name="product_image" id="product_image" class="text-center center-block file-upload">
+
+      </div></hr><br>
+
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
+
+          </div>
+
+
+        </div><!--/col-3-->
+    	<div class="col-sm-9">
+            <ul class="nav nav-tabs">
+
+        <label for="first_name"><h4>Capture new Product Details</h4></label>
+              </ul>
+
+
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+                <hr>
+
+
+
+                      <div class="form-group">
+
+                          <div class="col-xs-6">
+                              <label for="first_name"><h4>Product Name</h4></label>
+                              <input type="text" class="form-control" name="first_name" required="required" id="first_name" placeholder="enter product name" title="enter product name if any.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+
+                          <div class="col-xs-6">
+                            <label for="last_name"><h4>Product Code</h4></label>
+                              <input type="text" class="form-control" name="last_name" id="last_name"required="required"  placeholder="enter product code" title="enter your last name if any.">
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+
+                           <div class="form-group">
+
+                              <label><h4>Product Description</h4></label>
+                            <textarea class="form-control" id="description" required="required"  name="description" rows="3"></textarea>
+                          </div>
+                         <div class="form-group">
+
+                           <div class="form-group">
+                              <label for="last_name"><h4>Product Terms </h4></label>
+                            <textarea class="form-control" id="product_terms"required="required"  name="product_terms" rows="3"></textarea>
+                          </div>
+                        <div class="form-group">
+
+                           <div class="form-group">
+                              <label for="last_name"><h4>Product Conditions  </h4></label>
+                            <textarea class="form-control" id="product_conditions" required="required" name="product_conditions"rows="3"></textarea>
+                          </div>
+
+
+<!--                         This where the code begins   -->
+
+
+
+                       <div class="container">
+    <table id="myTable" class=" table order-list">
+    <thead>
+        <tr>
+            <td><label for="myTable"><h4>Applicable Currencies</h4></label></td>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="col-sm-4">
+                <input type="text" name="currency" id="currency" class="form-control" />
+            </td>
+
+            <td class="col-sm-2"><a class="deleteRow"></a>
+
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5" style="text-align: left;">
+               <button type="button" class="btn btn-lg btn-success" id="addrow"><i class="glyphicon glyphicon-plus"></i>Add Row </button>
+
+            </td>
+        </tr>
+        <tr>
+        </tr>
+    </tfoot>
+</table>
+</div>
+                            <script type="text/javascript">
+$(document).ready(function () {
+    var counter = 0;
+
+    $("#addrow").on("click", function () {
+        var newRow = $("<tr>");
+        var cols = "";
+
+        cols += '<td><input type="text" class="form-control" name="name' + counter + '"/></td>';
+
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        newRow.append(cols);
+        $("table.order-list").append(newRow);
+        counter++;
+    });
+
+
+
+    $("table.order-list").on("click", ".ibtnDel", function (event) {
+        $(this).closest("tr").remove();
+        counter -= 1
+    });
+
+
+});
+
+
+
+function calculateRow(row) {
+    var price = +row.find('input[name^="price"]').val();
+
+}
+
+function calculateGrandTotal() {
+    var grandTotal = 0;
+    $("table.order-list").find('input[name^="price"]').each(function () {
+        grandTotal += +$(this).val();
+    });
+    $("#grandtotal").text(grandTotal.toFixed(2));
+}
+                            </script>
+<!--                            it ends here-->
+
+                            <div class="form-group">
+
+                           <div class="form-group">
+                              <label><h4>Product MinimumRequirements  </h4></label>
+                            <textarea class="form-control" id="require"required="required"  name="require" rows="3"></textarea>
+                          </div>
+                                  <div class="form-group">
+                              <label><h4>What YouNeed</h4></label>
+                            <textarea class="form-control" id="need"required="required"  name="need" rows="1"></textarea>
+                          </div>  </div> <div class="form-group">
+                              <label><h4>What You Can Do</h4></label>
+                            <textarea class="form-control" id="do"required="required"  name="do" rows="1"></textarea>
+                          </div></div>
+<!--                             <div class="form-group">-->
+<!--                              <label for="mobile"><h4>Web Page</h4></label>-->
+<!--                            <textarea class="form-control" id="requsa2iremaents"required="required"  name="requirements" rows="5"></textarea>-->
+<!--                          </div>-->
+
+                         </div> <div class="form-group">
+                              <label for="last_name"><h4>Priority</h4></label>
+                            <textarea class="form-control" id="priority"required="required"  name="priority" rows="1"></textarea>
+
+                      </div>
+
+                        </div> <div class="form-group">
+                        <label><h4>KYC light</h4></label>
+                            <div class="custom-control custom-radio">
+                              <input type="radio" class="custom-control-input" value="true" id="kyc" name="kyc">
+                              <label class="custom-control-label" for="kyc">True</label>
+                            </div>
+
+                            <!-- Group of default radios - option 2 -->
+                            <div class="custom-control custom-radio">
+                              <input type="radio" class="custom-control-input" value="false" id="kyc1" name="kyc" checked>
+                              <label class="custom-control-label" for="kyc">False</label>
+                            </div>
+
+
+
+
+                      </div>
+   <div class="form-group">
+                           <div class="col-xs-12">
+                                <br>
+
+
+                </div><button class="btn btn-lg btn-success" onclick="myFunction()" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                               	<button class="btn btn-info btn-lg" type="button"><i class="glyphicon glyphicon-try" ></i> Reset</button>
+                            </div>
+
+                      </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+ </form>
+
+<script>
+
+
+const sweetalert = require("sweetalert");
+
+function myFunction() {
+
+
+var product_name = document.getElementById('first_name');
+var product_code = document.getElementById('last_name');
+
+
+if(product_name.value !== "" && product_code.value !=="" )
+{
+   swal("Good job!", "Successfully created product", "success")
+
+}else {
+
+ swal("Please fill the required information", "Data failiure", "error")
+
+
+}
+
+
+
+}
+</script>
+<!--This is where the Custom fields start-->
+<style>
+    body {
+		font-family: 'Varela Round', sans-serif;
+	}
+	.modal-login {
+		color: #636363;
+		width: 350px;
+		margin: 30px auto;
+	}
+	.modal-login .modal-content {
+		padding: 20px;
+		border-radius: 5px;
+		border: none;
+	}
+	.modal-login .modal-header {
+		border-bottom: none;
+		position: relative;
+		justify-content: center;
+	}
+	.modal-login h4 {
+		text-align: center;
+		font-size: 26px;
+	}
+	.modal-login  .form-group {
+		position: relative;
+	}
+	.modal-login i {
+		position: absolute;
+		left: 13px;
+		top: 11px;
+		font-size: 18px;
+	}
+	.modal-login .form-control {
+		padding-left: 40px;
+	}
+	.modal-login .form-control:focus {
+		border-color: #00ce81;
+	}
+	.modal-login .form-control, .modal-login .btn {
+		min-height: 40px;
+		border-radius: 3px;
+	}
+	.modal-login .hint-text {
+		text-align: center;
+		padding-top: 10px;
+	}
+	.modal-login .close {
+        position: absolute;
+		top: -5px;
+		right: -5px;
+	}
+	.modal-login .btn {
+		background: #00ce81;
+		border: none;
+		line-height: normal;
+	}
+	.modal-login .btn:hover, .modal-login .btn:focus {
+		background: #00bf78;
+	}
+	.modal-login .modal-footer {
+		background: #ecf0f1;
+		border-color: #dee4e7;
+		text-align: center;
+		margin: 0 -20px -20px;
+		border-radius: 5px;
+		font-size: 13px;
+		justify-content: center;
+	}
+	.modal-login .modal-footer a {
+		color: #999;
+	}
+	.trigger-btn {
+		display: inline-block;
+		margin: 100px auto;
+	}
+</style>
+</head>
+<body>
+
+<!-- Modal HTML -->
+
+<!--This is where the custom fields end-->
+
+
+</body>
+                    </div>
+                        </div>
+                         </div>
+                      </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

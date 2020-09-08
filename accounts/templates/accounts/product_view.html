@@ -1,0 +1,235 @@
+
+
+
+
+
+{%  extends 'accounts/main.html' %}
+
+{% block content %}
+
+{% load static %}
+
+
+<script>
+    $(document).ready(function() {
+
+
+    var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.avatar').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $(".file-upload").on('change', function(){
+        readURL(this);
+    });
+});
+</script>
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+
+
+
+<hr>
+<div class="container bootstrap snippet">
+    <div class="row">
+            <div class="col-sm-10"><h3>Product Image</h3></div>
+
+    </div>
+    <div class="row">
+  		<div class="col-sm-3"><!--left col-->
+
+
+      <div class="text-center">
+        <img src="data:image/png;base64,{{products_image}}" class="avatar img-circle img-thumbnail" alt="avatar">
+        <h6>Upload a different photo...</h6>
+        <input type="file" id="upload"  class="text-center center-block file-upload">
+      </div></hr><br>
+
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
+
+          </div>
+
+
+        </div><!--/col-3-->
+    	<div class="col-sm-9">
+            <ul class="nav nav-tabs">
+
+
+                <label><a href="#" onclick=configure_products();><h4>Configure Product</h4></a></label>
+              </ul>
+
+
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+                <hr>
+                  <form  method="POST"  action="{% url 'update_product' %}"  enctype="multipart/form-data">
+                       {% csrf_token %}
+                      <div class="form-group">
+
+                          <div class="col-xs-6">
+                              <label ><h4>Product Name</h4></label>
+                                 <input type="text" class="form-control" name="product_name"  value="{{product_details}}"  id="product_name"   title="enter your first name if any.">
+
+                                 </div>
+                      </div>
+                      <div class="form-group">
+
+                          <div class="col-xs-6">
+                            <label ><h4>Product Code</h4></label>
+                              <input type="text" class="form-control" name="product_code" id="product_code" value="{{products_Code}}"  title="enter your last name if any.">
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+
+                           <div class="form-group">
+                              <label ><h4>Product Description</h4></label>
+                            <textarea class="form-control" id="product_description"  name="product_description" rows="3">{{product_shortdescription}}</textarea>
+                          </div>
+                         <div class="form-group">
+
+                           <div class="form-group">
+                              <label><h4>Product Terms </h4></label>
+                            <textarea class="form-control" id="product_terms" name="product_terms" rows="3">{{products_Terms}}</textarea>
+                          </div>
+                        <div class="form-group">
+
+                           <div class="form-group">
+                              <label><h4>Product Conditions  </h4></label>
+                            <textarea class="form-control" id="product_conditions" name="product_conditions" rows="3">{{products_Conditions}}</textarea>
+                          </div>
+                      <div class="form-group">
+                          <div class="col-xs-6">
+                             <label><h4>Applicable Currencies</h4></label>
+                              <input type="text" class="form-control" name="product_currency" id="product_currency" value="{{product_Currency}}"  >
+                          </div>
+                       </div>
+
+                            <div class="form-goup">
+
+                           <div class="form-group">
+                              <label><h4>Product MinimumRequirements  </h4></label>
+                            <textarea class="form-control" id="product_minimum" name="product_minimum" rows="3">{{products_MinimumRequirements}}</textarea>
+                          </div>
+                         <div class="form-group">
+                              <label><h4>What YouNeed</h4></label>
+                            <textarea class="form-control" id="product_need"required="required"   name="product_need" rows="1">{{product_need}} </textarea>
+                          </div>  </div> <div class="form-group">
+                              <label><h4>What You Can Do</h4></label>
+                            <textarea class="form-control" id="product_do"required="required"  name="product_do"  rows="1">{{product_do}}</textarea>
+                          </div></div>
+<!--                             <div class="form-group">-->
+<!--                              <label for="mobile"><h4>Web Page</h4></label>-->
+<!--                            <textarea class="form-control" id="Page"required="required"  name="Page" rows="5">{{product_page}}</textarea>-->
+<!--                          </div>-->
+                         </div>
+                          <div class="form-group">
+                              <label><h4>Priority</h4></label>
+                            <textarea class="form-control" id="product_priority"required="required"   name="product_priority" rows="1">{{product_priority}}</textarea>
+
+                      </div>
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                            <div class="col-xs-6">
+                            <label><h4>Light Kyc</h4></label>
+
+                                <input type="text" class="form-control" name="product_kyc" id="product_kyc" value="{{product_kyc}}"  >
+
+                            </div>
+                            </div>
+
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                            <div class="col-xs-6">
+
+                                <input type="hidden" class="form-control" name="product_id" id="product_id"   value="{{product_id}}"  >
+
+                            </div>
+                            </div>
+
+                      <div class="form-group">
+                           <div class="col-xs-12">
+                                <br>
+                              	<button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                               <button class="btn btn-info btn-lg" type="button"><i class="glyphicon glyphicon-try"></i> Reset</button>
+
+
+                                </div>
+
+                      </div>
+                      </div>
+                  </form>
+                    </div>
+                        </div>
+                         </div>
+                      </div>
+
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+document.getElementById("upload").disabled = true;
+document.getElementById("product_name").disabled = true;
+document.getElementById("product_code").disabled = true;
+document.getElementById("product_description").disabled = true;
+document.getElementById("product_terms").disabled = true;
+document.getElementById("product_conditions").disabled = true;
+document.getElementById("product_currency").disabled = true;
+document.getElementById("product_need").disabled = true;
+document.getElementById("product_do").disabled = true;
+document.getElementById("product_priority").disabled = true;
+document.getElementById("product_kyc").disabled = true;
+document.getElementById("product_minimum").disabled = true;
+document.getElementById("requirements").disabled = true;
+document.getElementById("upload").disabled = true;
+
+
+</script>
+
+<script>
+  function configure_products()  {
+
+
+document.getElementById("product_name").disabled = false;
+document.getElementById("product_code").disabled = false;
+document.getElementById("product_description").disabled = false;
+document.getElementById("product_terms").disabled = false;
+document.getElementById("product_conditions").disabled = false;
+document.getElementById("product_currency").disabled = false;
+document.getElementById("product_need").disabled = false;
+document.getElementById("product_do").disabled = false;
+document.getElementById("product_priority").disabled = false;
+document.getElementById("product_kyc").disabled = false;
+document.getElementById("product_minimum").disabled = false;
+document.getElementById("requirements").disabled =false;
+
+
+                }
+
+
+</script>
+
+
+
+{% endblock content %}
